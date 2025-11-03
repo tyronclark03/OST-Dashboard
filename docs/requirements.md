@@ -49,3 +49,12 @@
 | FR-3 | Archiver | Functional Test + Log Review |
 | FR-4 | Logger | Audit Log Inspection |
 | FR-5 | GUI | UAT Observation |
+
+---
+
+## 6. References
+Linked documents:  
+- [Design Document](./design_doc.md)  
+- [Project Charter](./project_charter.md)  
+- [CHANGELOG](./CHANGELOG.md)
+- [REVISION_LOG](./REVISION_LOG.md)
