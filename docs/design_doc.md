@@ -76,10 +76,3 @@ Each module communicates via controlled interfaces; no module bypasses the logge
 - SHA256 validation before archival  
 - Role-based access control
 
----
-
-## 8. Revision History
-| Version | Date | Description |
-|----------|------|-------------|
-| 0.1 | 2025-11-02 | Initial baseline |
-| 0.2 | 2025-11-02 | Scanner module prototype draft |
