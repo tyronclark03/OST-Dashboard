@@ -1,0 +1,13 @@
+# Ignore large mock OST test files
+tests/mock_data/*.ost
+
+# Ignore temporary or generated files
+*.log
+*.tmp
+*.bak
+.DS_Store
+
+# Ignore build and output directories (future use)
+build/
+out/
+bin/
