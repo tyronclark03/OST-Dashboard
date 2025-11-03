@@ -1,7 +1,7 @@
 # Design Document
 **Project:** OST Dashboard  
 **Version:** 0.1  
-**Date:** 2025-11-02  
+**Last Updated:** 2025-11-02  
 
 ---
 
@@ -55,7 +55,24 @@ Each module communicates via controlled interfaces; no module bypasses the logge
 
 ---
 
-## 6. Future Enhancements
-- Centralized reporting dashboard for multiple PCs  
-- Scheduling engine for automated scans  
-- Integration with Exchange Online Archive status
+## 6. Scanner Module Prototype (v0.2 Target)
+**Objective:** Build a lightweight component to test scanning logic with mock OST data.
+
+**Deliverables**
+- Directory traversal under `/tests/mock_data`  
+- Metadata extraction (file name, size, date modified)  
+- Size aggregation summary  
+- Logging to text output  
+
+**Notes**
+- Prototype does **not** access real OSTs.  
+- Future integration: connect to Logger and Config modules.
+
+---
+
+## 7. Future Enhancements
+- Automated scheduling  
+- Centralized network reporting  
+- SHA256 validation before archival  
+- Role-based access control
+
