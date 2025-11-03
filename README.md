@@ -43,14 +43,14 @@ All modules communicate via defined interfaces and are designed for **audit-read
 ## 🗂️ Directory Structure
 
 OST-Dashboard/
-├── docs/ # Requirements, design, and changelog documentation
-├── src/ # Source code modules (Scanner, Archiver, Logger, GUI, Config)
-├── include/ # Public header files
-├── config/ # Default configuration templates
-├── resources/ # Icons, GUI assets, localization files
-├── tests/ # Unit and integration test files
-├── VERSION # Current version (v0.1.0)
-└── README.md # Project overview (this file)
+├── README.md
+├── VERSION
+├── config
+├── docs
+├── include
+├── resources
+├── src
+└── tests
 
 ---
 
