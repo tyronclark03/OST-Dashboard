@@ -7,7 +7,7 @@ tests/mock_data/*.ost
 *.bak
 .DS_Store
 
-# Ignore build and output directories (future use)
+# Ignore build and output directories
 build/
 out/
 bin/
