@@ -1,13 +1,14 @@
 #include <iostream>
 #include <filesystem>
 #include <iomanip>
+#include <string>
 
 namespace fs = std::filesystem;
 // fs::path path("../../tests/mock_data");
 
 void listFiles(const fs::path& dirPath) {
   for (const auto& entry: fs::recursive_directory_iterator(dirPath, fs::directory_options::skip_permission_denied)){
-    if (entry.path().extension() == ".ost"){      
+    if (entry.path().extension() == ".ost" || entry.path().extension() == ".OST"){      
         std::cout << "Name: " << entry.path().filename() << '\n'
                   << "Path: " << entry.path() << '\n';
 
@@ -24,12 +25,12 @@ void listFiles(const fs::path& dirPath) {
             displaySize /= 1024.0;
             unit = "KB";
         } 
-        else if (size < 1024ULL * 1024 * 1024) {
-            displaySize /= (1024.0 * 1024);
+        else if (size < 1024 * 1024 * 1024) {
+            displaySize /= (1024* 1024);
             unit = "MB";
         } 
         else {
-            displaySize /= (1024.0 * 1024 * 1024);
+            displaySize /= (1024 * 1024 * 1024);
             unit = "GB";
         }       
         
