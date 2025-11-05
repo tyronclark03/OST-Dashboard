@@ -55,6 +55,16 @@ Each module communicates via controlled interfaces; no module bypasses the logge
 
 ---
 
+### 🧱 Module State Matrix
+| Module | Version | Status | Next Objective |
+|---------|----------|---------|----------------|
+| Scanner | v0.2 | Functional prototype | Add thresholds + Logger integration |
+| Logger | v0.0 | Planned | Define schema and file format |
+| Archiver | v0.0 | Planned | Integrate with Logger for compression flow |
+| Config | v0.0 | Planned | Introduce dynamic threshold + path inputs |
+
+---
+
 ## 6. Scanner Module Prototype (v0.2 Target)
 **Objective:** Build a lightweight component to test scanning logic with mock OST data.
 
@@ -70,7 +80,7 @@ Each module communicates via controlled interfaces; no module bypasses the logge
 
 ---
 
-## 7. Future Enhancements
+## 7. Future Considerations
 - Automated scheduling  
 - Centralized network reporting  
 - SHA256 validation before archival  
