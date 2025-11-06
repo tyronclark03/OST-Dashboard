@@ -11,12 +11,3 @@
 | 2025-11-05 | Tyron Clark | `CHANGELOG.md` | Recorded Scanner Module Prototype (v0.2.0) | 0.2 |
 | 2025-11-05 | Tyron Clark | Root `README.md` | Add 'Current Focus' section and update 'Version History' | 0.2 |
 
----
-
-## [v0.2.0] – 2025-11-05
-### Added
-- Implemented Scanner module prototype using `std::filesystem`
-- Added file size conversion to KB/MB/GB within two-decimal precision
-- Added recursive directory traversal for `/tests/mock_data`
-- Introduced error handling for unreadable paths
-- Updated documentation for release alignment

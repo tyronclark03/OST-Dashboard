@@ -7,7 +7,7 @@
 
 ## 📖 Overview
 
-**OST Dashboard** is a secure desktop utility built in C++ for **banking IT departments** to discover, analyze, and manage **Microsoft Outlook OST files** across local or networked systems.  
+**OST Dashboard** is a secure desktop utility built in C++ for **enterprise IT departments** to discover, analyze, and manage **Microsoft Outlook OST files** across local or networked systems.  
 It addresses one of the most common IT pain points in enterprise environments — oversized, orphaned, or outdated OST files consuming critical storage and degrading workstation performance.
 
 This project emphasizes **security, auditability, and offline operation**, simulating real-world engineering practices in regulated industries.
