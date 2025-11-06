@@ -65,18 +65,21 @@ Each module communicates via controlled interfaces; no module bypasses the logge
 
 ---
 
-## 6. Scanner Module Prototype (v0.2 Target)
-**Objective:** Build a lightweight component to test scanning logic with mock OST data.
+### 6. Scanner Module Prototype (v0.2.0 — Completed)
+**Objective:**  
+Build a lightweight component to test scanning logic with mock OST data.
 
-**Deliverables**
-- Directory traversal under `/tests/mock_data`  
+**Deliverables Implemented:**  
+- Recursive directory traversal under `/tests/mock_data`  
 - Metadata extraction (file name, size, date modified)  
-- Size aggregation summary  
-- Logging to text output  
+- File size formatting (B, KB, MB, GB)  
+- Error handling for inaccessible paths  
+- Output to console (text log planned for v0.3)
 
-**Notes**
-- Prototype does **not** access real OSTs.  
-- Future integration: connect to Logger and Config modules.
+**Notes:**  
+- Prototype successfully validated scanning logic using dummy OST data.  
+- No interaction with real OSTs (mock-only).  
+- Future integration planned with Logger and Config modules (v0.3+).
 
 ---
 
