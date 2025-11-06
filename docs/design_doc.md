@@ -1,7 +1,7 @@
 # Design Document
 **Project:** OST Dashboard  
 **Version:** 0.1  
-**Last Updated:** 2025-11-02  
+**Last Updated:** 2025-11-05  
 
 ---
 
@@ -69,7 +69,7 @@ Each module communicates via controlled interfaces; no module bypasses the logge
 **Objective:**  
 Build a lightweight component to test scanning logic with mock OST data.
 
-**Deliverables Implemented:**  
+**Implemented:**  
 - Recursive directory traversal under `/tests/mock_data`  
 - Metadata extraction (file name, size, date modified)  
 - File size formatting (B, KB, MB, GB)  
