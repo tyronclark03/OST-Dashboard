@@ -1,7 +1,7 @@
 # Software Requirements Specification
 **Project:** OST Dashboard  
-**Version:** 0.1  
-**Date:** 2025-11-02  
+**Version:** 0.2  
+**Last Updated:** 2025-11-02  
 
 ---
 
