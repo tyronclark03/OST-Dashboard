@@ -1,16 +1,25 @@
 # 🖥️ OST Dashboard  
-**Version:** v0.1.0  
+**Version:** v0.2.0  
 **Author:** Tyron Clark  
-**Status:** In Development – Proof of Concept  
+**Status:** In Development – Scanner Prototype
 
 ---
 
 ## 📖 Overview
 
-**OST Dashboard** is a secure desktop utility built in C++ for **banking IT departments** to discover, analyze, and manage **Microsoft Outlook OST files** across local or networked systems.  
+**OST Dashboard** is a secure desktop utility built in C++ for **enterprise IT departments** to discover, analyze, and manage **Microsoft Outlook OST files** across local or networked systems.  
 It addresses one of the most common IT pain points in enterprise environments — oversized, orphaned, or outdated OST files consuming critical storage and degrading workstation performance.
 
 This project emphasizes **security, auditability, and offline operation**, simulating real-world engineering practices in regulated industries.
+
+---
+
+## 🧭 Current Focus (v0.2.0)
+The current release delivers the **Scanner module prototype**, which establishes core file discovery and metadata extraction features using C++17’s `<filesystem>` library.
+
+This marks the foundation for subsequent module integration:
+- **v0.3:** Threshold-based categorization and Logger integration.
+- **v0.4:** Config file support and Archiver integration.
 
 ---
 
@@ -80,6 +89,7 @@ OST-Dashboard/
 
 | Version | Date | Description |
 |----------|------|-------------|
+| **0.2.0** | 2025-11-05 | Implemented Scanner module prototype (`src/scanner/scanner.cpp`); recursive traversal, file size formatting, and documentation updates. |
 | **0.1.0** | 2025-11-02 | Initial project structure, documentation, and baseline setup. |
 
 ---

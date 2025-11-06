@@ -1,13 +1,13 @@
 # Project Charter – OST Dashboard
 
-**Project:** OST Dashboard  
-**Version:** 0.1  
-**Date:** 2025-11-02
+**Project:** OST Dashboard <br>
+**Version:** 0.2 <br>
+**Last Updated:** 2025-11-05
 
 ---
 
 ## 1. Purpose
-The **OST Dashboard** project provides a secure desktop utility for banking IT departments to discover, analyze, and manage Outlook OST files.  
+The **OST Dashboard** project provides a secure desktop utility for enterprise IT departments to discover, analyze, and manage Outlook OST files.  
 It targets performance, storage, and compliance challenges caused by large or orphaned OSTs on corporate machines.
 
 ---

@@ -1,7 +1,7 @@
 # Design Document
-**Project:** OST Dashboard  
-**Version:** 0.1  
-**Last Updated:** 2025-11-02  
+**Project:** OST Dashboard  <br>
+**Version:** 0.2 <br>
+**Last Updated:** 2025-11-05  
 
 ---
 
@@ -55,22 +55,35 @@ Each module communicates via controlled interfaces; no module bypasses the logge
 
 ---
 
-## 6. Scanner Module Prototype (v0.2 Target)
-**Objective:** Build a lightweight component to test scanning logic with mock OST data.
-
-**Deliverables**
-- Directory traversal under `/tests/mock_data`  
-- Metadata extraction (file name, size, date modified)  
-- Size aggregation summary  
-- Logging to text output  
-
-**Notes**
-- Prototype does **not** access real OSTs.  
-- Future integration: connect to Logger and Config modules.
+### 🧱 Module State Matrix
+| Module | Version | Status | Next Objective |
+|---------|----------|---------|----------------|
+| Scanner | v0.2 | Functional prototype | Add thresholds + Logger integration |
+| Logger | v0.0 | Planned | Define schema and file format |
+| Archiver | v0.0 | Planned | Integrate with Logger for compression flow |
+| Config | v0.0 | Planned | Introduce dynamic threshold + path inputs |
 
 ---
 
-## 7. Future Enhancements
+### 6. Scanner Module Prototype (v0.2.0 — Completed)
+**Objective:**  
+Build a lightweight component to test scanning logic with mock OST data.
+
+**Implemented:**  
+- Recursive directory traversal under `/tests/mock_data`  
+- Metadata extraction (file name, size, date modified)  
+- File size formatting (B, KB, MB, GB)  
+- Error handling for inaccessible paths  
+- Output to console (text log planned for v0.3)
+
+**Notes:**  
+- Prototype successfully validated scanning logic using dummy OST data.  
+- No interaction with real OSTs (mock-only).  
+- Future integration planned with Logger and Config modules (v0.3+).
+
+---
+
+## 7. Future Considerations
 - Automated scheduling  
 - Centralized network reporting  
 - SHA256 validation before archival  
