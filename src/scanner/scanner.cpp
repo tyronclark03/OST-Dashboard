@@ -76,7 +76,7 @@ int main()
   std::cout << "=== OST Scanner Prototype v0.2.0 ===\n";
   std::cout << "Scanning Directory: " << mockDataPath.string() << "\n\n";
 
-  // Perform recursive directory traversal.
+  // Perform recursive directory traversal
   listFiles(mockDataPath);
 
   std::cout << "=== Scan Complete ===\n";
