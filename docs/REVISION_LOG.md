@@ -10,4 +10,6 @@
 | 2025-11-05 | Tyron Clark | `design_doc.md` | Add section 6, Scanner Module Prototype (v0.2.0) | 0.2 |
 | 2025-11-05 | Tyron Clark | `CHANGELOG.md` | Recorded Scanner Module Prototype (v0.2.0) | 0.2 |
 | 2025-11-05 | Tyron Clark | Root `README.md` | Add 'Current Focus' section and update 'Version History' | 0.2 |
+| 2025-11-09 | Tyron Clark | `design_doc.md`, `CHANGELOG.md` | Recorded Scanner Module Prototype (v0.3.0) | 0.3 |
+
 

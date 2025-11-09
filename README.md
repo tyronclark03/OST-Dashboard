@@ -1,5 +1,5 @@
 # 🖥️ OST Dashboard  
-**Version:** v0.2.0  
+**Version:** v0.3.0  
 **Author:** Tyron Clark  
 **Status:** In Development – Scanner Prototype
 
@@ -14,12 +14,14 @@ This project emphasizes **security, auditability, and offline operation**, simul
 
 ---
 
-## 🧭 Current Focus (v0.2.0)
-The current release delivers the **Scanner module prototype**, which establishes core file discovery and metadata extraction features using C++17’s `<filesystem>` library.
+## 🧭 Current Focus (v0.3.0)
+The latest version introduces **threshold-based categorization** of OST files and refined output
+display for IT operators. The scanner now classifies files as:
+- CRITICAL > 30 GB
+- WARNING ≥ 10 GB
+- NORMAL < 10 GB (not shown in console)
 
-This marks the foundation for subsequent module integration:
-- **v0.3:** Threshold-based categorization and Logger integration.
-- **v0.4:** Config file support and Archiver integration.
+Next release (v0.4) will focus on logging and configuration integration.
 
 ---
 

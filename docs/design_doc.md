@@ -1,7 +1,7 @@
 # Design Document
 **Project:** OST Dashboard  <br>
-**Version:** 0.2 <br>
-**Last Updated:** 2025-11-05  
+**Version:** 0.3 <br>
+**Last Updated:** 2025-11-09  
 
 ---
 
@@ -83,7 +83,22 @@ Build a lightweight component to test scanning logic with mock OST data.
 
 ---
 
-## 7. Future Considerations
+### 7. Scanner Module Enhancement (v0.3.0 — Completed)
+**Objective:**  
+Introduce file size threshold categorization and refined console display.
+
+**Implemented:**  
+- Threshold logic: NORMAL, WARNING (≥10 GB), CRITICAL (>30 GB)
+- Category classification via `classifyFileSize()` helper  
+- Suppressed NORMAL entries in console output  
+- Summary footer with total and flagged file counts  
+
+**Next Target (v0.4):**  
+Export categorized results to log file; integrate Logger module.
+
+---
+
+## 8. Future Considerations
 - Automated scheduling  
 - Centralized network reporting  
 - SHA256 validation before archival  
