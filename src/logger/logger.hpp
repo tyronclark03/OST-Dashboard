@@ -10,8 +10,8 @@ namespace fs = filesystem;
 
 class Logger {
 private:
-    fs::path logPath;       ///< Full path to log file
-    ofstream logFile;  ///< Stream for log writing
+    fs::path logPath; 
+    ofstream logFile;
 
 public:
     explicit Logger(const string& fileName);
