@@ -12,12 +12,30 @@
 #include <filesystem>
 #include <iomanip>
 #include <string>
+#include <vector>
 
-namespace fs = std::filesystem;
+using namespace std;
+
+namespace fs = filesystem;
 
 
-void listFiles(const fs::path& dirPath)
+// Hold file metadata for each OST file discovered
+struct FileRecord
 {
+    string name;
+    string path;
+    double fileSize{0.0};
+    string unit;
+
+    FileRecord() : name(""), path(""), fileSize(0.0), unit("") {}
+};
+
+
+vector<FileRecord> listFiles(const fs::path& dirPath)
+{
+
+    vector<FileRecord> fileList;
+
     try
     {
         // Create a recursive iterator to walk through all subdirectories.
@@ -28,44 +46,42 @@ void listFiles(const fs::path& dirPath)
             auto ext = entry.path().extension().string();
 
             // Filter condition: case insensitive OST files
-            if (ext == ".ost" || ext == ".OST")
+            if (entry.is_regular_file() && (ext == ".ost" || ext == ".OST"))
             {
-                // Confirm the entry is a regular file (not directory, symlink, etc.)
-                if (fs::is_regular_file(entry.path()))
-                {
-                    // Get file size in bytes
-                    auto size = fs::file_size(entry.path());
-                    double readableSize = static_cast<double>(size);
-                    std::string unit = "B";
+                FileRecord record;
+                record.name = entry.path().filename().string();
+                record.path = entry.path().string();
 
-                    // Convert bytes to KB / MB / GB dynamically
-                    if (readableSize >= 1024) {
-                        readableSize /= 1024;
-                        unit = "KB";
-                    }
-                    if (readableSize >= 1024) {
-                        readableSize /= 1024;
-                        unit = "MB";
-                    }
-                    if (readableSize >= 1024) {
-                        readableSize /= 1024;
-                        unit = "GB";
-                    }
+                // Get file size in bytes
+                double size = static_cast<double>(fs::file_size(entry.path()));
+                record.unit = "B";
 
-                    // Output formatted file details
-                    std::cout << std::fixed << std::setprecision(2);
-                    std::cout << "File: " << entry.path().filename().string() << '\n';
-                    std::cout << "Path: " << entry.path().string() << '\n';
-                    std::cout << "Size: " << readableSize << ' ' << unit << "\n\n";
+                // Convert bytes to KB / MB / GB dynamically
+                if (size >= 1024) {
+                    size /= 1024;
+                    record.unit = "KB";
                 }
+                if (size >= 1024) {
+                    size /= 1024;
+                    record.unit = "MB";
+                }
+                if (size >= 1024) {
+                    size /= 1024;
+                    record.unit = "GB";
+                }
+
+                record.fileSize = size;
+
+                fileList.push_back(record);
             }
         }
     }
     catch (const fs::filesystem_error& e)
     {
         // Catch and report filesystem errors, such as permission denial or I/O issues.
-        std::cerr << "[Error] " << e.what() << '\n';
+        cerr << "[Error] " << e.what() << '\n';
     }
+    return fileList;
 }
 
 int main()
@@ -73,13 +89,20 @@ int main()
   // Define the base directory to scan.
   const fs::path mockDataPath = "../../tests/mock_data";
 
-  std::cout << "=== OST Scanner Prototype v0.2.0 ===\n";
-  std::cout << "Scanning Directory: " << mockDataPath.string() << "\n\n";
+  cout << "=== OST Scanner Prototype v0.2.0 ===\n";
+  cout << "Scanning Directory: " << mockDataPath.string() << "\n\n";
 
-  // Perform recursive directory traversal
-  listFiles(mockDataPath);
+  vector<FileRecord> results = listFiles(mockDataPath);
+  for (const auto& file : results)
+  {
+    cout << "File: " << file.name << '\n'
+         << "Path: " << file.path << '\n'
+         << "Size: " << fixed << setprecision(2)
+         << file.fileSize << ' ' << file.unit << "\n\n";
+  }
 
-  std::cout << "=== Scan Complete ===\n";
+  cout << "=== Scan Complete ===\n";
+  cout << "Total Files Found: " << results.size() << '\n';
 }
 
 
