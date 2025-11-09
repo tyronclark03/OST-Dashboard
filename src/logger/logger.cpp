@@ -4,8 +4,6 @@
 #include <iomanip>
 #include <sstream>
 
-using namespace std;
-
 // --- Constructor ---
 Logger::Logger(const string& fileName)
     : logPath(fileName), logFile(fileName, ios::app)
