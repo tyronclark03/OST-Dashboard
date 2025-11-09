@@ -91,6 +91,7 @@ OST-Dashboard/
 
 | Version | Date | Description |
 |----------|------|-------------|
+| **0.3.0** | 2025-11-09 | Add size threshold classification helper for the scanner module. |
 | **0.2.0** | 2025-11-05 | Implemented Scanner module prototype (`src/scanner/scanner.cpp`); recursive traversal, file size formatting, and documentation updates. |
 | **0.1.0** | 2025-11-02 | Initial project structure, documentation, and baseline setup. |
 
