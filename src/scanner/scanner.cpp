@@ -1,11 +1,9 @@
 /*
  * Module: Scanner
- * Version: v0.2.0
+ * Version: v0.3.0
  * Description:
- *   Performs recursive traversal of OST directories using the C++17 filesystem library.
- *   Filters for .ost and .OST files only, then displays file path, name, and formatted size.
- *   Handles permission errors gracefully.
- * Last update: 2025-11-05
+ *  Traverses mock data directory, gathers metadata, and classifies files by size thresholds.
+ * Last update: 2025-11-08
  */
 
 #include <iostream>
@@ -22,14 +20,30 @@ namespace fs = filesystem;
 // Hold file metadata for each OST file discovered
 struct FileRecord
 {
-    string name;
-    string path;
+    string name{};
+    string path{};
     double fileSize{0.0};
-    string unit;
+    string unit{};
+    string category{};
 
-    FileRecord() : name(""), path(""), fileSize(0.0), unit("") {}
+    // FileRecord() : name(""), path(""), fileSize(0.0), unit(""), category("") {}
 };
 
+string classifyFileSize(double sizeGB)
+{
+    if(sizeGB > 30.0)
+    {
+        return "CRITICAL";
+    }
+    else if (sizeGB >= 10.0)
+    {
+        return "WARNING";
+    }
+    else
+    {
+        return "NORMAL";
+    }
+}
 
 vector<FileRecord> listFiles(const fs::path& dirPath)
 {
@@ -56,7 +70,7 @@ vector<FileRecord> listFiles(const fs::path& dirPath)
                 double size = static_cast<double>(fs::file_size(entry.path()));
                 record.unit = "B";
 
-                // Convert bytes to KB / MB / GB dynamically
+                // Convert bytes to KB / MB / GB
                 if (size >= 1024) {
                     size /= 1024;
                     record.unit = "KB";
@@ -71,6 +85,7 @@ vector<FileRecord> listFiles(const fs::path& dirPath)
                 }
 
                 record.fileSize = size;
+                record.category = classifyFileSize(size);
 
                 fileList.push_back(record);
             }
@@ -89,20 +104,35 @@ int main()
   // Define the base directory to scan.
   const fs::path mockDataPath = "../../tests/mock_data";
 
-  cout << "=== OST Scanner Prototype v0.2.0 ===\n";
+  cout << "=== OST Scanner ===\n";
   cout << "Scanning Directory: " << mockDataPath.string() << "\n\n";
 
   vector<FileRecord> results = listFiles(mockDataPath);
+
+  cout << left << setw(25) << "File"
+       << setw(12) << "Size(GB)"
+       << "Category\n";
+       
+  cout << string(60, '-') << '\n';
+
+  int flaggedCount = 0;
   for (const auto& file : results)
   {
-    cout << "File: " << file.name << '\n'
-         << "Path: " << file.path << '\n'
-         << "Size: " << fixed << setprecision(2)
-         << file.fileSize << ' ' << file.unit << "\n\n";
-  }
+    // Does not display normal sized files
+    if (file.category == "NORMAL")
+    {
+        continue;
+    }
 
+    cout << left << setw(25) << file.name
+         << setw(12) << fixed << setprecision(2) << file.fileSize
+         << file.category << '\n';
+    flaggedCount++;
+   }
+  cout << '\n';
   cout << "=== Scan Complete ===\n";
   cout << "Total Files Found: " << results.size() << '\n';
+  cout << "Files Exceeding Limit: " << flaggedCount << '\n';
 }
 
 

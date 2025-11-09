@@ -6,9 +6,16 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Planned
-- Add threshold-based file categorization (v0.3)
 - Integrate Logger module for event tracking
 - Prepare configuration loader (scanner.conf)
+
+---
+
+## [v0.3.0] – 2025-11-09
+### Added
+- File size threshold classification (NORMAL/WARNING/CRITICAL)
+- Display policy: hide NORMAL, summarize flagged files
+- Internal data model retains full metadata for logging
 
 ---
 
@@ -26,6 +33,7 @@ All notable changes to this project will be documented in this file.
 - Project charter, requirements, and high-level design documentation.
 - Repository and directory structure initialized.
 - Semantic Versioning 2.0.0 policy adopted.
+
 
 
 
