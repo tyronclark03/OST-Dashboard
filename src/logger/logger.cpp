@@ -6,9 +6,11 @@
 
 using namespace std;
 
+// --- Constructor ---
 Logger::Logger(const string& fileName)
-    : logPath(fileName), logFile(fileName, ios::app)  // order matches declaration
+    : logPath(fileName), logFile(fileName, ios::app)
 {
+    // Ensure directory exists
     fs::create_directories(fs::path(fileName).parent_path());
 
     if (!logFile.is_open()) {
@@ -18,12 +20,14 @@ Logger::Logger(const string& fileName)
     }
 }
 
+// --- Destructor ---
 Logger::~Logger() {
     if (logFile.is_open()) {
         logFile.close();
     }
 }
 
+// --- Timestamp helper ---
 string Logger::getTimestamp() const {
     auto now = chrono::system_clock::now();
     time_t now_c = chrono::system_clock::to_time_t(now);
@@ -40,6 +44,7 @@ string Logger::getTimestamp() const {
     return oss.str();
 }
 
+// --- Logging methods ---
 void Logger::write(const string& message) {
     if (logFile.is_open()) {
         logFile << "[" << getTimestamp() << "] " << message << '\n';
