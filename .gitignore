@@ -1,13 +1,55 @@
-# Ignore large mock OST test files
-tests/mock_data/*.ost
+# ===========================================
+# OST Dashboard - Git Ignore Rules
+# ===========================================
 
-# Ignore temporary or generated files
-*.log
+# Build & binary output
+/bin/
+/*.exe
+/*.out
+/*.obj
+/*.o
+/*.a
+/*.so
+/*.dll
+
+# Logs
+/logs/
+/*.log
+*.log.*
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*~
+
+# System
+.DS_Store
+Thumbs.db
+
+# Test data
+/tests/mock_data/*
+!/tests/mock_data/.gitkeep
+
+# Generated artifacts
+scan_report_*.txt
+
+# Temporary files
 *.tmp
 *.bak
-.DS_Store
+*.old
 
-# Ignore build and output directories
-build/
-out/
-bin/
+# Compiled debug info
+*.dSYM/
+*.pdb
+*.mod
+
+# CMake or Make build cache
+/build/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+
+# Misc
+*.autosave
+*.cache
