@@ -1,7 +1,7 @@
 # Design Document
 **Project:** OST Dashboard  <br>
-**Version:** 0.3 <br>
-**Last Updated:** 2025-11-09  
+**Version:** 0.5 <br>
+**Last Updated:** 2025-11-10  
 
 ---
 
