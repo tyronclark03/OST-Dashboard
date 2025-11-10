@@ -6,8 +6,18 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Planned
-- Integrate Logger module for event tracking
-- Prepare configuration loader (scanner.conf)
+- Add config-driven thresholds
+- Add log retention (auto-clean old logs)
+- Add CSV/JSON export
+
+---
+
+## [v0.4.0] – 2025-11-09
+### Added
+- Dynamic project-root resolution so scanner works from `/bin` or repo root
+- Per-run timestamped logging to `logs/scan_report_YYYY-MM-DD.txt`
+- Inline comments across scanner/logger sources
+- Updated README with build/run instructions
 
 ---
 

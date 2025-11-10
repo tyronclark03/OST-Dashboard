@@ -10,6 +10,9 @@
 | 2025-11-05 | Tyron Clark | `design_doc.md` | Add section 6, Scanner Module Prototype (v0.2.0) | 0.2 |
 | 2025-11-05 | Tyron Clark | `CHANGELOG.md` | Recorded Scanner Module Prototype (v0.2.0) | 0.2 |
 | 2025-11-05 | Tyron Clark | Root `README.md` | Add 'Current Focus' section and update 'Version History' | 0.2 |
-| 2025-11-09 | Tyron Clark | `design_doc.md`, `CHANGELOG.md` | Recorded Scanner Module Prototype (v0.3.0) | 0.3 |
+| 2025-11-09 | Tyron Clark | `design_doc.md`, `CHANGELOG.md` | Documented v0.3.0 (threshold logic and categorization) | 0.3 |
+| 2025-11-09 | Tyron Clark | Root `README.md` | Updated Current Focus for v0.4.0 (logging + dynamic path) | 0.4 |
+| 2025-11-09 | Tyron Clark | `design_doc.md` | Added Section 7 – Logging & Runtime Path Resolution (v0.4.0) | 0.4 |
+| 2025-11-09 | Tyron Clark | `CHANGELOG.md` | Added v0.4.0 entry (logger + dynamic path) | 0.4 |
 
 
