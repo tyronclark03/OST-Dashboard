@@ -13,11 +13,11 @@ Logger::Logger(const std::string& fileName)
     // make sure the directory for the log exists
     fs::create_directories(logPath.parent_path());
 
-    // basic runtime feedback (you can comment this out later)
+    // basic runtime feedback
     if (!logFile.is_open()) {
         std::cerr << "[Logger] Failed to open log file at: " << logPath << '\n';
     } else {
-        // std::cout << "[Logger] Writing logs to: " << logPath << '\n';
+        std::cout << "[Logger] Writing logs to: " << logPath << '\n';
     }
 }
 
