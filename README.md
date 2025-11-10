@@ -1,5 +1,5 @@
 # 🖥️ OST Dashboard  
-**Version:** v0.4.0  
+**Version:** v0.5.0  
 **Author:** Tyron Clark  
 **Status:** In Development
 
@@ -95,6 +95,7 @@ OST-Dashboard/
 
 | Version | Date | Description |
 |----------|------|-------------|
+| **0.5.0** | 2025-11-10 | Added Config module and integrated dynamic runtime configuration. |
 | **0.4.0** | 2025-11-09 | Introduced logging system, dynamic path resolution, and updated documentation. |
 | **0.3.0** | 2025-11-09 | Add size threshold classification helper for the scanner module. |
 | **0.2.0** | 2025-11-05 | Implemented Scanner module prototype (`src/scanner/scanner.cpp`); recursive traversal, file size formatting, and documentation updates. |

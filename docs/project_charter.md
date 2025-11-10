@@ -1,7 +1,7 @@
 # Project Charter – OST Dashboard
 
 **Project:** OST Dashboard <br>
-**Version:** 0.2 <br>
+**Version:** 0.5 <br>
 **Last Updated:** 2025-11-05
 
 ---
