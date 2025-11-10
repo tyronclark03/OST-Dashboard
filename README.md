@@ -14,19 +14,18 @@ This project emphasizes **security, auditability, and offline operation**, simul
 
 ---
 
-## 🧭 Current Focus (v0.4.0)
-The latest version introduces **threshold-based categorization**, **logging integration**, and **dynamic path resolution** for the scanner module. OST files are now classified and logged as follows:
+## 🧭 Current Focus (v0.5.0)
+The latest version introduces **config-driven scanning** and **logging integration**.
 
-- **CRITICAL** > 30 GB  
-- **WARNING** ≥ 20 GB  
-- **NORMAL** < 20 GB (hidden from console but written to log)
+The scanner now reads thresholds and paths from `scanner.conf`:
+- **CRITICAL** > `critical_threshold`
+- **WARNING** ≥ `warning_threshold`
+- **NORMAL** < `warning_threshold` (hidden from console if `show_normal=false`)
 
-Each scan automatically generates a timestamped log file in `/logs/`, allowing IT operators to review results even when “NORMAL” files are suppressed in the console.
-
-The next release (**v0.5.0**) will focus on:
-- Configurable thresholds via a `scanner.conf` file  
-- Automatic log rotation and retention policies  
-- Exporting scan data to CSV/JSON for reporting
+Next release (**v0.6.0**) will focus on:
+- Configurable archival actions (move/delete/archive)
+- JSON report export 
+- Log retention and cleanup policies
 
 
 ---

@@ -14,5 +14,6 @@
 | 2025-11-09 | Tyron Clark | Root `README.md` | Updated Current Focus for v0.4.0 (logging + dynamic path) | 0.4 |
 | 2025-11-09 | Tyron Clark | `design_doc.md` | Added Section 7 – Logging & Runtime Path Resolution (v0.4.0) | 0.4 |
 | 2025-11-09 | Tyron Clark | `CHANGELOG.md` | Added v0.4.0 entry (logger + dynamic path) | 0.4 |
+| 2025-11-10 | Tyron Clark | `design_doc.md`, `CHANGELOG.md`, `README.md` | Documented Config Module Integration (v0.5.0) | 0.5 |
 
 

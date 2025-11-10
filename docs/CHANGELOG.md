@@ -12,6 +12,16 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [v0.5.0] – 2025-11-10
+### Added
+- Introduced `Config` module for dynamic runtime configuration
+- Added `scanner.conf` for adjustable thresholds, directories, and flags
+- Integrated `Config` with `Scanner` to replace hardcoded thresholds
+- Logger now accepts configurable directory path via `logs_dir` entry
+- Updated CMake build to include `config.cpp` for modular builds
+
+---
+
 ## [v0.4.0] – 2025-11-09
 ### Added
 - Dynamic project-root resolution so scanner works from `/bin` or repo root
