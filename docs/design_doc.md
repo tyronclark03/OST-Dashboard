@@ -76,11 +76,6 @@ Build a lightweight component to test scanning logic with mock OST data.
 - Error handling for inaccessible paths  
 - Output to console (text log planned for v0.3)
 
-**Notes:**  
-- Prototype successfully validated scanning logic using dummy OST data.  
-- No interaction with real OSTs (mock-only).  
-- Future integration planned with Logger and Config modules (v0.3+).
-
 ---
 
 ### 7. Scanner Module Enhancement (v0.3.0 — Completed)
@@ -93,12 +88,23 @@ Introduce file size threshold categorization and refined console display.
 - Suppressed NORMAL entries in console output  
 - Summary footer with total and flagged file counts  
 
-**Next Target (v0.4):**  
-Export categorized results to log file; integrate Logger module.
+---
+
+### 8. v0.4.0 — Logging & Runtime Path Resolution
+
+**Goal:**  
+Make the scanner usable regardless of where the executable is run from, and capture every scan in a dated log file.
+
+**Implemented:**
+- Runtime detection of execution directory (`/bin` vs repo root)
+- Construction of real project root at runtime
+- Logs now stored in `<project-root>/logs/scan_report_YYYY-MM-DD.txt`
+- Logger made compliant with strict C++ build flags (member init order, unused params)
+- Scanner still suppresses NORMAL in console, but now logs all files for audit
 
 ---
 
-## 8. Future Considerations
+## 9. Future Considerations
 - Automated scheduling  
 - Centralized network reporting  
 - SHA256 validation before archival  

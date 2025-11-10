@@ -4,54 +4,58 @@
 #include <iomanip>
 #include <sstream>
 
-// --- Constructor ---
-Logger::Logger(const string& fileName)
-    : logPath(fileName), logFile(fileName, ios::app)
-{
-    // Ensure directory exists
-    fs::create_directories(fs::path(fileName).parent_path());
+using namespace std;
 
+Logger::Logger(const std::string& fileName)
+    : logPath(fileName),
+      logFile(fileName, std::ios::app)
+{
+    // make sure the directory for the log exists
+    fs::create_directories(logPath.parent_path());
+
+    // basic runtime feedback (you can comment this out later)
     if (!logFile.is_open()) {
-        cerr << "[Logger] Failed to open log file at " << logPath << '\n';
+        std::cerr << "[Logger] Failed to open log file at: " << logPath << '\n';
     } else {
-        cout << "[Logger] Writing logs to: " << logPath << '\n';
+        // std::cout << "[Logger] Writing logs to: " << logPath << '\n';
     }
 }
 
-// --- Destructor ---
 Logger::~Logger() {
     if (logFile.is_open()) {
         logFile.close();
     }
 }
 
-// --- Timestamp helper ---
-string Logger::getTimestamp() const {
-    auto now = chrono::system_clock::now();
-    time_t now_c = chrono::system_clock::to_time_t(now);
+std::string Logger::getTimestamp() const {
+    // grab current time
+    auto now   = std::chrono::system_clock::now();
+    std::time_t now_c = std::chrono::system_clock::to_time_t(now);
 
-    tm localTime{};
+    std::tm localTime{};
 #ifdef _WIN32
+    // windows secure version
     localtime_s(&localTime, &now_c);
 #else
+    // posix / linux / mac version
     localtime_r(&now_c, &localTime);
 #endif
 
-    ostringstream oss;
-    oss << put_time(&localTime, "%Y-%m-%d %H:%M:%S");
+    std::ostringstream oss;
+    oss << std::put_time(&localTime, "%Y-%m-%d %H:%M:%S");
     return oss.str();
 }
 
-// --- Logging methods ---
-void Logger::write(const string& message) {
+void Logger::write(const std::string& message) {
     if (logFile.is_open()) {
         logFile << "[" << getTimestamp() << "] " << message << '\n';
-        logFile.flush();
+        logFile.flush(); // make sure it hits disk
     }
 }
 
 void Logger::writeDivider() {
     if (logFile.is_open()) {
         logFile << "------------------------------------------------------------\n";
+        logFile.flush();
     }
 }

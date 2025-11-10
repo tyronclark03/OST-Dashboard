@@ -1,7 +1,7 @@
 # 🖥️ OST Dashboard  
-**Version:** v0.3.0  
+**Version:** v0.4.0  
 **Author:** Tyron Clark  
-**Status:** In Development – Scanner Prototype
+**Status:** In Development
 
 ---
 
@@ -14,14 +14,20 @@ This project emphasizes **security, auditability, and offline operation**, simul
 
 ---
 
-## 🧭 Current Focus (v0.3.0)
-The latest version introduces **threshold-based categorization** of OST files and refined output
-display for IT operators. The scanner now classifies files as:
-- CRITICAL > 30 GB
-- WARNING ≥ 10 GB
-- NORMAL < 10 GB (not shown in console)
+## 🧭 Current Focus (v0.4.0)
+The latest version introduces **threshold-based categorization**, **logging integration**, and **dynamic path resolution** for the scanner module. OST files are now classified and logged as follows:
 
-Next release (v0.4) will focus on logging and configuration integration.
+- **CRITICAL** > 30 GB  
+- **WARNING** ≥ 20 GB  
+- **NORMAL** < 20 GB (hidden from console but written to log)
+
+Each scan automatically generates a timestamped log file in `/logs/`, allowing IT operators to review results even when “NORMAL” files are suppressed in the console.
+
+The next release (**v0.5.0**) will focus on:
+- Configurable thresholds via a `scanner.conf` file  
+- Automatic log rotation and retention policies  
+- Exporting scan data to CSV/JSON for reporting
+
 
 ---
 
@@ -56,10 +62,9 @@ All modules communicate via defined interfaces and are designed for **audit-read
 ```
 OST-Dashboard/
 ├─ docs/          # Requirements, design, and changelog documentation
-├─ src/           # Source code modules (Scanner, Archiver, Logger, GUI, Config)
-├─ include/       # Public header files
-├─ config/        # Default configuration templates
-├─ resources/     # Icons, GUI assets, localization files
+├─ src/scanner/   # Scanner logic, file model
+├─ src/logger/    # Logging utility
+├─ logs/          # Runtime scan reports
 └─ tests/         # Unit and integration test files
 ```
 
@@ -91,6 +96,7 @@ OST-Dashboard/
 
 | Version | Date | Description |
 |----------|------|-------------|
+| **0.4.0** | 2025-11-09 | Introduced logging system, dynamic path resolution, and updated documentation. |
 | **0.3.0** | 2025-11-09 | Add size threshold classification helper for the scanner module. |
 | **0.2.0** | 2025-11-05 | Implemented Scanner module prototype (`src/scanner/scanner.cpp`); recursive traversal, file size formatting, and documentation updates. |
 | **0.1.0** | 2025-11-02 | Initial project structure, documentation, and baseline setup. |
