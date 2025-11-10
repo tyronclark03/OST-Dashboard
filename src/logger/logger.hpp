@@ -1,25 +1,26 @@
 #pragma once
-#include <fstream>
 #include <string>
+#include <fstream>
 #include <filesystem>
 
-using namespace std;
-
-namespace fs = filesystem;
-
+namespace fs = std::filesystem;
 
 class Logger {
 private:
-    fs::path logPath; 
-    ofstream logFile;
+    fs::path     logPath;   // where the log will be written
+    std::ofstream logFile;  // output stream
+
+    // Build a timestamp string like "2025-11-09 14:33:21"
+    std::string getTimestamp() const;
 
 public:
-    explicit Logger(const string& fileName);
+    // Pass in a full path to a log file
+    explicit Logger(const std::string& fileName);
     ~Logger();
 
-    void write(const string& message);
-    void writeDivider();
+    // Write one log line with timestamp
+    void write(const std::string& message);
 
-private:
-    string getTimestamp() const;
+    // Write a separator line
+    void writeDivider();
 };

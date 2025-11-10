@@ -1,16 +1,17 @@
 /*
  * Module: Scanner
- * Version: v0.4.0
+ * Version: v0.5.0
  * Description:
- *   - Resolve project root at runtime (works from /bin or root)
- *   - Scan tests/mock_data for .ost/.OST
- *   - Convert size to GB
- *   - Classify by thresholds
- *   - Log results to timestamped file in /logs
+ *   - Resolve project root dynamically (works from /bin or root)
+ *   - Load configuration from scanner.conf
+ *   - Scan for .ost/.OST files under configured mock_data_dir
+ *   - Convert size to GB, categorize by config thresholds
+ *   - Log results to timestamped file in configured logs_dir
  */
 
 #include "scanner.hpp"
 #include "../logger/logger.hpp"
+#include "../config/config.hpp"
 
 #include <iostream>
 #include <iomanip>
@@ -23,25 +24,21 @@ namespace fs = std::filesystem;
 
 // ------------------------------------------------------------
 // Decide which category the file belongs to
-// (these can later move to config)
 // ------------------------------------------------------------
-std::string classifyFileSize(double sizeGB) {
-    // > 30 GB is critical
-    if (sizeGB > 30.0) {
+std::string classifyFileSize(double sizeGB, double warnThreshold, double critThreshold) {
+    if (sizeGB > critThreshold) {
         return "CRITICAL";
     }
-    // 20–30 GB is just a warning for now
-    if (sizeGB >= 20.0) {
+    if (sizeGB >= warnThreshold) {
         return "WARNING";
     }
-    // under 20 GB we don't need to show in console
-    return "";
+    return ""; // under warning threshold = NORMAL
 }
 
 // ------------------------------------------------------------
 // Walk the directory and collect file info
 // ------------------------------------------------------------
-std::vector<FileRecord> listFiles(const fs::path& dirPath) {
+std::vector<FileRecord> listFiles(const fs::path& dirPath, double warnThreshold, double critThreshold) {
     std::vector<FileRecord> results;
 
     try {
@@ -49,25 +46,21 @@ std::vector<FileRecord> listFiles(const fs::path& dirPath) {
                  dirPath,
                  fs::directory_options::skip_permission_denied))
         {
-            if (!entry.is_regular_file()) {
-                continue;
-            }
+            if (!entry.is_regular_file()) continue;
 
             const auto ext = entry.path().extension().string();
-            if (ext != ".ost" && ext != ".OST") {
-                continue;
-            }
+            if (ext != ".ost" && ext != ".OST") continue;
 
             FileRecord rec;
             rec.name = entry.path().filename().string();
             rec.path = entry.path().string();
 
-            // size in bytes → GB
+            // Convert bytes to GB
             double sizeBytes = static_cast<double>(fs::file_size(entry.path()));
-            double sizeGB    = sizeBytes / (1024.0 * 1024.0 * 1024.0);
+            double sizeGB = sizeBytes / (1024.0 * 1024.0 * 1024.0);
 
-            rec.sizeGB  = sizeGB;
-            rec.category = classifyFileSize(sizeGB);
+            rec.sizeGB = sizeGB;
+            rec.category = classifyFileSize(sizeGB, warnThreshold, critThreshold);
 
             results.push_back(rec);
         }
@@ -84,28 +77,46 @@ std::vector<FileRecord> listFiles(const fs::path& dirPath) {
 // ------------------------------------------------------------
 int main() {
     try {
-        cout << "=== OST Scanner v0.4.0 ===\n";
+        cout << "=== OST Scanner v0.5.0 ===\n";
 
-        // figure out where we are running from (root or /bin)
+        // Resolve runtime path (root vs /bin)
         fs::path execPath = fs::current_path();
-        fs::path rootPath = execPath;
+        fs::path rootPath = (execPath.filename() == "bin")
+                                ? execPath.parent_path()
+                                : execPath;
 
-        // if we're in /bin, go up one level to project root
-        if (execPath.filename() == "bin") {
-            rootPath = execPath.parent_path();
+        // ------------------------------------------------------------
+        // Load configuration
+        // ------------------------------------------------------------
+        Config config;
+        fs::path configPath = rootPath / "scanner.conf";
+
+        if (!config.load(configPath.string())) {
+            std::cerr << "[Scanner] Could not load config, using defaults.\n";
+        } else {
+            cout << "[Scanner] Loaded configuration from " << configPath << "\n";
         }
 
-        // build path to mock data
-        fs::path mockDataPath = rootPath / "tests" / "mock_data";
+        double warningThreshold = config.getDouble("warning_threshold", 20.0);
+        double criticalThreshold = config.getDouble("critical_threshold", 30.0);
+        std::string mockDataDir = config.get("mock_data_dir", "tests/mock_data");
+        std::string logsDirStr = config.get("logs_dir", "logs");
+        bool showNormal = config.getBool("show_normal", false);
 
-        // build a per-run log file name
+        fs::path mockDataPath = rootPath / mockDataDir;
+        fs::path logsDir = rootPath / logsDirStr;
+        fs::create_directories(logsDir);
+
+        // ------------------------------------------------------------
+        // Build log file path
+        // ------------------------------------------------------------
         std::time_t now = std::time(nullptr);
         std::tm local{};
-#ifdef _WIN32
+    #ifdef _WIN32
         localtime_s(&local, &now);
-#else
+    #else
         localtime_r(&now, &local);
-#endif
+    #endif
 
         std::ostringstream logName;
         logName << "scan_report_"
@@ -114,22 +125,20 @@ int main() {
                 << std::setw(2) << std::setfill('0') << local.tm_mday
                 << ".txt";
 
-        fs::path logsDir = rootPath / "logs";
-        fs::create_directories(logsDir);
         fs::path logFilePath = logsDir / logName.str();
-
-        // init logger with full path
         Logger logger(logFilePath.string());
 
         cout << "Scanning Directory: " << mockDataPath << "\n\n";
         logger.write("=== New Scan Started ===");
+        logger.write("Loaded Config: " + configPath.string());
         logger.write("Scanning Directory: " + mockDataPath.string());
         logger.writeDivider();
 
-        // run scanner
-        std::vector<FileRecord> files = listFiles(mockDataPath);
+        // ------------------------------------------------------------
+        // Run scanner
+        // ------------------------------------------------------------
+        std::vector<FileRecord> files = listFiles(mockDataPath, warningThreshold, criticalThreshold);
 
-        // header for console
         cout << left << setw(26) << "File"
              << setw(12) << "Size(GB)"
              << "Category\n";
@@ -137,29 +146,29 @@ int main() {
 
         int flagged = 0;
         for (const auto& f : files) {
-            // don't show normal files in console (but still log them)
-            if (f.category.empty()) {
-                // write info to log for audit
+            bool isNormal = f.category.empty();
+
+            if (isNormal) {
                 logger.write(f.name + " | " + f.path + " | " + to_string(f.sizeGB) + " GB | NORMAL");
-                continue;
+                if (!showNormal) continue; // skip console print if disabled
             }
 
-            // console output
             cout << left << setw(26) << f.name
                  << setw(12) << fixed << setprecision(2) << f.sizeGB
-                 << f.category << '\n';
+                 << (isNormal ? "NORMAL" : f.category) << '\n';
 
-            // logger output
             std::ostringstream oss;
             oss << f.name << " | " << f.path << " | "
                 << std::fixed << std::setprecision(2) << f.sizeGB << " GB | "
-                << f.category;
+                << (isNormal ? "NORMAL" : f.category);
             logger.write(oss.str());
 
-            flagged++;
+            if (!isNormal) flagged++;
         }
 
-        // summary
+        // ------------------------------------------------------------
+        // Summary
+        // ------------------------------------------------------------
         cout << "\n=== Scan Summary ===\n";
         cout << "Total Files Scanned : " << files.size() << '\n';
         cout << "Files Exceeding Limit: " << flagged << '\n';
