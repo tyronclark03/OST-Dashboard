@@ -58,10 +58,10 @@ Each module communicates via controlled interfaces; no module bypasses the logge
 ### 🧱 Module State Matrix
 | Module | Version | Status | Next Objective |
 |---------|----------|---------|----------------|
-| Scanner | v0.2 | Functional prototype | Add thresholds + Logger integration |
-| Logger | v0.0 | Planned | Define schema and file format |
-| Archiver | v0.0 | Planned | Integrate with Logger for compression flow |
-| Config | v0.0 | Planned | Introduce dynamic threshold + path inputs |
+| Scanner | v0.5 | Fully integrated with Logger + Config | Add archiver integration |
+| Logger | v0.5 | Stable | Add log retention policy |
+| Archiver | v0.0 | Planned | Introduce archival actions for large OSTs |
+| Config | v0.5 | Stable | Extend schema for GUI settings |
 
 ---
 
@@ -90,7 +90,7 @@ Introduce file size threshold categorization and refined console display.
 
 ---
 
-### 8. v0.4.0 — Logging & Runtime Path Resolution
+### 8. Logging & Runtime Path Resolution (v0.4.0 - Completed)
 
 **Goal:**  
 Make the scanner usable regardless of where the executable is run from, and capture every scan in a dated log file.
@@ -101,6 +101,18 @@ Make the scanner usable regardless of where the executable is run from, and capt
 - Logs now stored in `<project-root>/logs/scan_report_YYYY-MM-DD.txt`
 - Logger made compliant with strict C++ build flags (member init order, unused params)
 - Scanner still suppresses NORMAL in console, but now logs all files for audit
+
+---
+
+### 9. Configuration Module (v0.5.0 — Completed)
+
+**Objective:**  
+Decouple scanner thresholds and directories from source code using a configuration file.
+
+**Implemented:**  
+- New `Config` class that loads key-value pairs from `scanner.conf`
+- Default fallbacks for missing keys
+- Integration with `Scanner` and `Logger` modules
 
 ---
 
