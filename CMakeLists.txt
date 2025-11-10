@@ -16,6 +16,7 @@ add_executable(ost_dashboard
     src/scanner/scanner_test.cpp
     src/logger/logger.cpp
     src/config/config.cpp
+    src/actions/action_handler.cpp
 )
 # warnings like before
 if (MSVC)

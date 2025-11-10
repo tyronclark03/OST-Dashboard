@@ -12,6 +12,7 @@
 #include "scanner.hpp"
 #include "../logger/logger.hpp"
 #include "../config/config.hpp"
+#include "../actions/action_handler.hpp"
 
 #include <iostream>
 #include <iomanip>
@@ -164,6 +165,15 @@ int main() {
             logger.write(oss.str());
 
             if (!isNormal) flagged++;
+        }
+
+        ActionHandler actionHandler(config, logger);
+
+        for (const auto& f : files) {
+            // Only act on flagged files
+            if (f.category == "CRITICAL" || f.category == "WARNING") {
+                actionHandler.handleFile(f);
+            }
         }
 
         // ------------------------------------------------------------
