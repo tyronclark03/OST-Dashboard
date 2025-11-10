@@ -2,37 +2,14 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "type": "cppbuild",
-      "label": "C/C++: Build OST Dashboard (scanner + logger)",
-      "command": "/usr/bin/g++",
-      "args": [
-        "-fdiagnostics-color=always",
-        "-g",
-        "-O2",
-        "-DNDEBUG",
-        "-pedantic-errors",
-        "-Wall",
-        "-Weffc++",
-        "-Wextra",
-        "-Wconversion",
-        "-Wsign-conversion",
-        "-Werror",
-        "-std=c++17",
-        "src/scanner/*.cpp",
-        "src/logger/*.cpp",
-        "-o",
-        "${workspaceFolder}/bin/ost_dashboard",
-        "-I./include"
-      ],
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
+      "label": "CMake: build OST Dashboard",
+      "type": "shell",
+      "command": "cmake --build build --config Release",
       "problemMatcher": ["$gcc"],
       "group": {
         "kind": "build",
         "isDefault": true
-      },
-      "detail": "Builds both the Scanner and Logger modules for the OST Dashboard project."
+      }
     }
   ]
 }
